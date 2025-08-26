@@ -22,5 +22,25 @@
     >
       Get Started
     </a>
+    <br>
+    <a 
+      
+    
+      class="px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-xl text-lg font-semibold shadow-lg transition"
+      (click)="getWelcomeMessage()"
+    >
+      Welcome Message
+    </a>
+    <br>
+    <a 
+      
+    
+      class="px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-xl text-lg font-semibold shadow-lg transition"
+      (click)="getWelcomeMessageWithParameter()"
+    >
+      Welcome Message by name
+    </a>
+    <p class="text-4xl text-violet-500" >{{message}}</p>
+    <p class="text-4xl text-violet-500" >{{messageWelcome}}</p>
   </div>
 </div>
