@@ -1,5 +1,8 @@
 import { DatePipe, NgFor, NgIf, UpperCasePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { TodoDataService } from '../service/data/todo-data.service';
+import { Router } from '@angular/router';
+import { FormsModule } from "@angular/forms";
 
 export class Todos {
   constructor(
@@ -13,30 +16,58 @@ export class Todos {
 }
 @Component({
   selector: 'app-list-todos',
-  imports: [NgIf, NgFor, UpperCasePipe, DatePipe],
+  imports: [NgIf, NgFor, UpperCasePipe, DatePipe, FormsModule],
   templateUrl: './list-todos.component.html',
   styleUrl: './list-todos.component.css'
 })
 
 
 export class ListTodosComponent implements OnInit {
-  constructor() { }
-
+description: any;
+  constructor(private todosService: TodoDataService,
+    private router: Router
+  ) { }
+  todos: any
+  newTodo : any
+  showAddModal = false;
   ngOnInit(): void {
+    this.todosService.getAllTodos('eee').subscribe(
+      response => {
+        console.log(response);
 
+        this.todos = response
+      }
+    )
   }
 
-  todos: any = [
-    // {
-    //   id: 1,
-    //   description: 'hjhe'
-    // }, {
-    //   id: 2,
-    //   description: 'hjhe'
+  deleteTodo(id: any) {
+    if (confirm("Are you sure to delete?")) {
+      this.todosService.deleteTodo('eee', id).subscribe(
+        response => {
+          this.ngOnInit()
+          console.log(response);
+        })
+    }
+  }
+
+  updateTodo(id: any) {
+    this.router.navigate(['todos', id,]);
+  }
+
+  addTodo() {
+    // if (form.valid) {
+
+      this.todosService.addTodo('eee', this.newTodo).subscribe(
+        data => {
+          console.log(this.newTodo);
+          this.todos.push(data);
+          this.showAddModal = false;
+          this.ngOnInit();
+        })
     // }
-    new Todos(1, 'test',false, new Date()),
-    new Todos(2, 'test',false, new Date()),
-    new Todos(3, 'test',false, new Date()),
-    new Todos(4, 'test',false, new Date()),
-  ]
+  }
+
+
+
+
 }

@@ -1,7 +1,13 @@
+<div class="flex justify-end m-4">
+  <button (click)="showAddModal = true"
+          class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">
+    Ajouter une tâche
+  </button>
+</div>
 
 
 <div class="relative overflow-x-auto">
-    <table class="w-1/2 m-auto mt-2 text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+    <table class="w-3/4 m-auto mt-2 text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
                 <th scope="col" class="px-6 py-3">
@@ -16,10 +22,15 @@
                 <th scope="col" class="px-6 py-3">
                     Date
                 </th>
+
+                <th scope="col" class="px-6 py-3">
+                    Actions
+                </th>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let todo of todos" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
+            <tr *ngFor="let todo of todos"
+                class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     {{todo.id}}
                 </th>
@@ -30,10 +41,64 @@
                     {{todo.done}}
                 </td>
                 <td class="px-6 py-4">
-                    {{todo.date |date |uppercase  }}
+                    {{todo.date |date |uppercase }}
+                </td>
+
+                <td class="flex gap-4">
+                    <button class="bg-red-500 hover:bg-red-700 cursor-pointer text-white font-bold py-2 px-4 rounded"  (click)="deleteTodo(todo.id)" >
+                        Delete
+                    </button>
+                    <button class="bg-green-500 hover:bg-green-700 cursor-pointer text-white font-bold py-2 px-4 rounded" (click)="updateTodo(todo.id)" >
+                        Update
+                    </button>
                 </td>
             </tr>
-            
+
         </tbody>
     </table>
 </div>
+
+
+<div *ngIf="showAddModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+  <div class="bg-white rounded-xl shadow-lg w-11/12 max-w-md p-6 relative animate-fadeIn">
+    <div class="flex justify-between items-center mb-4">
+      <h2 class="text-xl font-bold text-gray-800">Ajouter une tâche</h2>
+      <button (click)="showAddModal = false" class="text-gray-500 hover:text-gray-800 font-bold text-xl">&times;</button>
+    </div>
+
+    <!-- Formulaire statique -->
+    <form class="space-y-4">
+      <div >
+        <label class="block text-sm font-medium text-gray-700">Description</label>
+        <textarea [(ngModel)]="newTodo.description" name="description" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  placeholder="Entrez la description"></textarea>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Date limite</label>
+        <input type="date" name="date"
+        [(ngModel)]="newTodo.date"
+               class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+      </div>
+
+      <div class="flex items-center gap-2">
+        <input [(ngModel)]="newTodo.done" name="done" type="checkbox" id="done" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+        <label for="done" class="text-sm text-gray-700">Terminé</label>
+      </div>
+
+      <div class="flex justify-end gap-2 mt-4">
+        <button type="button" (click)="showAddModal = false"
+                class="px-4 py-2 rounded-lg bg-gray-300 hover:bg-gray-400 text-gray-700 font-bold">
+          Annuler
+        </button>
+        <button type="submit"
+        (click)="addTodo()"
+                class="px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white font-bold">
+          Ajouter
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+

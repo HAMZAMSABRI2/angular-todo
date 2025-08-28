@@ -1,0 +1,36 @@
+<form class="max-w-xl mx-auto p-6 bg-white rounded-xl shadow-md" novalidate>
+  <!-- Description -->
+  <div class="mb-4">
+    <label for="description" class="block text-sm font-medium mb-1">Description</label>
+    <textarea id="description" name="description" rows="4"
+              [(ngModel)]="todo.description"
+              class="w-full px-4 py-2 border rounded-lg resize-vertical focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-indigo-500"
+              placeholder="Décris la tâche..."></textarea>
+  </div>
+
+  <!-- Date -->
+  <div class="mb-4">
+    <label for="date" class="block text-sm font-medium mb-1">Date limite</label>
+    <input id="date" name="dueDate" type="date"
+           [value]="todo.date |date:'yyyy-MM-dd'"
+           class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-indigo-500" />
+  </div>
+
+  <!-- Statut (checkbox) -->
+  <div class="mb-6 flex items-center">
+    <input id="done" name="done" type="checkbox"
+           [(ngModel)]="todo.done"
+           class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500" />
+    <label for="done" class="ml-2 text-sm">Terminé</label>
+  </div>
+
+  <!-- Actions -->
+  <div class="flex items-center justify-between">
+    <button type="button" (click)="saveTodo()"
+            class="inline-flex items-center px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-indigo-500">
+      Enregistrer les modifications
+    </button>
+
+    <a routerLink="/todos" class="text-sm text-gray-600 hover:underline">Annuler</a>
+  </div>
+</form>

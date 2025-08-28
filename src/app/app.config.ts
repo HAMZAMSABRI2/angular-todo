@@ -9,6 +9,7 @@ import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHotToastConfig } from '@ngxpert/hot-toast';
 
 
 
@@ -18,6 +19,6 @@ export const appConfig: ApplicationConfig = {
 
 providers: [importProvidersFrom(BrowserModule, FormsModule), provideRouter(routes),
 
-provideHttpClient(withInterceptorsFromDi())]
+provideHttpClient(withInterceptorsFromDi()), provideHotToastConfig()]
 
 };

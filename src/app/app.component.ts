@@ -5,6 +5,8 @@ import { LoginComponent } from './login/login.component';
 import { ListTodosComponent } from './list-todos/list-todos.component';
 import { ErrorComponent } from './error/error.component';
 import { MenuComponent } from './menu/menu.component';
+import { HotToastService } from '@ngxpert/hot-toast';
+
 import { FooterComponent } from './footer/footer.component';
 // import { RouteGuar }
 @Component({
@@ -16,7 +18,7 @@ import { FooterComponent } from './footer/footer.component';
     ListTodosComponent,
     ErrorComponent,
     MenuComponent,
-    FooterComponent
+    FooterComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
